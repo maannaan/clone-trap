@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# pwd -P is required: ~/.claude/skills/<name> is a symlink, and logical
+# ../../../../ from that path is $HOME, not the engine checkout.
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
+ENGINE_ROOT="$(cd "$SCRIPT_DIR/../../../.." && pwd -P)"
+
+if [[ -x "$ENGINE_ROOT/.venv/bin/python" ]]; then
+  PYTHON="$ENGINE_ROOT/.venv/bin/python"
+else
+  PYTHON="${PYTHON3:-$(command -v python3)}"
+fi
+
+if [[ -z "$PYTHON" ]]; then
+  echo "clone-trap: python3 not found on PATH" >&2
+  exit 127
+fi
+
+export PYTHONPATH="$ENGINE_ROOT/src"
+exec "$PYTHON" -m clone_trap "$@"

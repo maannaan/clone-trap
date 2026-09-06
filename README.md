@@ -69,6 +69,16 @@ python3 scripts/clone_trap.py --repo /absolute/path/to/git/repo --max-findings 2
 
 `src/clone_trap/` is the source of truth. `play/resources/clone_trap/` is a packaged copy that must stay in sync.
 
+## Claude Code skill
+
+Canonical agent skill: [`.claude/skills/clone-trap/`](.claude/skills/clone-trap/). Claude Code does not load `.cursor/skills`. To make it available in any project:
+
+```bash
+ln -sfn "$(pwd)/.claude/skills/clone-trap" ~/.claude/skills/clone-trap
+```
+
+Skip the command if `~/.claude/skills/clone-trap` already exists and is not a symlink. Cursor loads the same files via `.cursor/skills/clone-trap`.
+
 ## Rote Play
 
 Public Play (no `engine_root`; does not need this checkout):
