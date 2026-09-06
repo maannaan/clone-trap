@@ -14,7 +14,7 @@ It never says a clone will fail. It never runs `npm install`, Docker, or applica
 
 A repository that works on the author's machine often fails after a clean clone. README may say `npm install && npm run dev` while startup code also reads `REDIS_URL` and expects PostgreSQL.
 
-Those hidden assumptions already live in the tree: environment reads, Compose files, gitignore, version pins, and setup docs. Most linters check one layer. They do not join them.
+Those hidden assumptions already live in the tree: documentation, manifests, scripts, Git configuration, tracked or ignored artifacts, service configuration, toolchain declarations, and machine-specific paths. Most linters check one layer. They do not join them.
 
 ## Solution
 
@@ -69,7 +69,7 @@ python3 scripts/clone_trap.py --repo /absolute/path/to/git/repo --max-findings 2
 
 `src/clone_trap/` is the source of truth. `play/resources/clone_trap/` is a packaged copy that must stay in sync.
 
-## Published Play
+## Rote Play
 
 ```bash
 rote play run play/main.ts repo_path=/absolute/path/to/git/repo
@@ -127,4 +127,4 @@ PYTHONPATH=src python3 -m pytest -q
 
 ## Project status
 
-Local CLI and Play are complete. First public Git/Play release is pending. MIT license. Contributions welcome — see [CONTRIBUTING.md](CONTRIBUTING.md).
+The GitHub repository is public. The Rote Play is packaged and unpublished. MIT license. Contributions welcome — see [CONTRIBUTING.md](CONTRIBUTING.md).
