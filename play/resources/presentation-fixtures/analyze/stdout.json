@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "repository": "/absolute/path/to/example-app",
+  "readiness": "high_risk",
+  "readiness_reason": "Undocumented REDIS_URL — this repository appears to require something a clean clone may not have.",
+  "summary": {
+    "confirmed_traps": 2,
+    "likely_traps": 0,
+    "environment_assumptions": 0,
+    "informational": 0
+  },
+  "documentation_drift": {
+    "documented_setup": [
+      "npm install",
+      "npm run dev"
+    ],
+    "undocumented_requirements": [
+      "Undocumented REDIS_URL",
+      "Undocumented redis dependency"
+    ],
+    "documented_but_unused": []
+  },
+  "clone_path": [
+    {
+      "stage": "clone",
+      "documented": true,
+      "finding_ids": []
+    },
+    {
+      "stage": "install",
+      "documented": true,
+      "finding_ids": []
+    },
+    {
+      "stage": "generate",
+      "documented": false,
+      "finding_ids": []
+    },
+    {
+      "stage": "configure",
+      "documented": false,
+      "finding_ids": [
+        "env.redis_url.undocumented"
+      ]
+    },
+    {
+      "stage": "start_services",
+      "documented": false,
+      "finding_ids": [
+        "service.redis.undocumented"
+      ]
+    },
+    {
+      "stage": "run",
+      "documented": true,
+      "finding_ids": []
+    }
+  ],
+  "bootstrap_actions": [
+    {
+      "action": "configure",
+      "requirement": "REDIS_URL",
+      "confidence": 0.9,
+      "finding_ids": [
+        "env.redis_url.undocumented"
+      ]
+    },
+    {
+      "action": "start",
+      "requirement": "redis dependency",
+      "confidence": 0.9,
+      "finding_ids": [
+        "service.redis.undocumented"
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "id": "env.redis_url.undocumented",
+      "category": "environment",
+      "verdict": "confirmed_trap",
+      "severity": "high",
+      "confidence": 0.9,
+      "title": "Undocumented REDIS_URL",
+      "evidence": [
+        {
+          "source": "source",
+          "path": "backend/app/config.py",
+          "detail": "reads REDIS_URL"
+        }
+      ],
+      "counter_evidence": [],
+      "affected_files": [
+        "backend/app/config.py"
+      ],
+      "why_it_matters": "A clean clone may start without REDIS_URL configured.",
+      "verification": "Search the working tree for REDIS_URL and compare README / .env.example.",
+      "remediation": "Consider documenting REDIS_URL in setup docs and an env example file.",
+      "clone_stage": "configure"
+    },
+    {
+      "id": "service.redis.undocumented",
+      "category": "services",
+      "verdict": "confirmed_trap",
+      "severity": "high",
+      "confidence": 0.9,
+      "title": "Undocumented redis dependency",
+      "evidence": [
+        {
+          "source": "source",
+          "path": "backend/app/config.py",
+          "detail": "redis env signal"
+        }
+      ],
+      "counter_evidence": [],
+      "affected_files": [
+        "backend/app/config.py"
+      ],
+      "why_it_matters": "A clean clone may start without the required redis service.",
+      "verification": "Check docker-compose, CI services, and README for redis.",
+      "remediation": "Consider documenting redis and providing a Compose service or hosted alternative.",
+      "clone_stage": "start_services"
+    }
+  ],
+  "truncated": false
+}

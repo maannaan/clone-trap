@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+.DS_Store
+.venv/
+.pytest_cache/
+.rote/
+.rote-flow-lint.json
+play/.rote-flow-lint.json
+.rote-release.lock
+play/.rote-release.lock
+validation/results/*.json
+validation/results/*.err
