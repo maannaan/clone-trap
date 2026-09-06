@@ -71,13 +71,22 @@ python3 scripts/clone_trap.py --repo /absolute/path/to/git/repo --max-findings 2
 
 ## Rote Play
 
+Public Play (no `engine_root`; does not need this checkout):
+
+```bash
+rote play run https://play.modiqo.ai/maannaaan/clone-trap@0.1.0 \
+  repo_path=/absolute/path/to/git/repo
+```
+
+From a clone-trap checkout:
+
 ```bash
 rote play run play/main.ts repo_path=/absolute/path/to/git/repo
 ```
 
-The Play ships the analysis package. It does not need `engine_root`.
+The Play ships the analysis package. Findings are evidence, not a guarantee that a clone will fail or succeed.
 
-`rote play info` may print `version: 0.80.0`. That is the Rote runtime (`rote_version`). The Play version is frontmatter **0.1.0**.
+`rote play info` may print `version: 0.80.0`. That is the Rote runtime (`rote_version`). The Play version is **0.1.0**.
 
 ## Inputs
 
@@ -110,6 +119,7 @@ Inspect that evidence. Do not treat it as proof the process cannot start.
 - Optional feature flags may look required if fallbacks are dynamic.
 - Documentation mentions are heuristic.
 - Empty output is not a safety guarantee.
+- Scanning this repository itself can report fake service traps (mongodb/mysql/rabbitmq) because the extractors contain those pattern strings. Do not demo Clone Trap on its own source.
 
 ## Tests
 
@@ -127,4 +137,4 @@ PYTHONPATH=src python3 -m pytest -q
 
 ## Project status
 
-The GitHub repository is public. The Rote Play is packaged and unpublished. MIT license. Contributions welcome — see [CONTRIBUTING.md](CONTRIBUTING.md).
+The GitHub repository and the Rote Play are public. MIT license. Contributions welcome — see [CONTRIBUTING.md](CONTRIBUTING.md).
